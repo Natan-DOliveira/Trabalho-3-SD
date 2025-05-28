@@ -1,4 +1,4 @@
-`timescale 1ps/1ns
+`timescale 1ns/1ps
 
 module tb_deserializador;
 
@@ -28,7 +28,7 @@ module tb_deserializador;
     initial begin
 
         $monitor("Time=%0t state=%s data_in=%b write_in=%b bits_count=%0d data_out=%8b data_ready=%b status_out=%b",
-                 $time, dut.state.name, data_in, write_in, dut.bits_count, data_out, data_ready, status_out);
+                 $time, DUT.state.name, data_in, write_in, DUT.bits_count, data_out, data_ready, status_out);
 
         clock_100KHz = 0;
         reset    = 1;
@@ -48,6 +48,9 @@ module tb_deserializador;
         data_in  = 1; #10;
         data_in  = 0; #10;
         data_in  = 1; #10;
+        data_in  = 0; #10;
+        data_in  = 1; #10;
+        data_in  = 0; #10;
         write_in = 0; #10;
         ack_in   = 1; #20;
         ack_in   = 0; #10;
