@@ -24,7 +24,7 @@ module deserializador (
     logic [7:0] bits_storage;
 
         // Lógica Síncrona
-    always @(posedge clock_100KHz or posedge reset) begin
+    always_ff @(posedge clock_100KHz or posedge reset) begin
         if (reset) begin
             state        <= AGUARDA;
             status_out   <= 1'b0;
