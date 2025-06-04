@@ -41,7 +41,6 @@ module fila (
             data_out_next_cicle <= 8'b0;
         end
         else begin
-            data_out <= data_out_next_cicle;
             case (state)
                 
                 AGUARDA: begin
@@ -58,15 +57,15 @@ module fila (
                     fila[tail_node] <= data_in;
                     tail_node       <= tail_node + 1;
                     reg_len_out     <= reg_len_out + 1;
-                    state <= AGUARDA;
+                    state           <= AGUARDA;
                 end
 
                 DEQUEUE: begin
-                    data_out_next_cicle     <= fila[head_node];
+                    data_out                <= fila[head_node];
                     fila[head_node]         <= 8'hXX;
                     head_node               <= head_node + 1;
                     reg_len_out             <= reg_len_out - 1;
-                    state <= AGUARDA;
+                    state                   <= AGUARDA;
                 end
             endcase
         end
