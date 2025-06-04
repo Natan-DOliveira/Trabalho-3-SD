@@ -55,26 +55,18 @@ module fila (
                 end
 
                 ENQUEUE: begin
-                    if (enqueue_in && reg_len_out < 8) begin
-                        fila[tail_node] <= data_in;
-                        tail_node       <= tail_node + 1;
-                        reg_len_out     <= reg_len_out + 1;
-                    end
-                    else begin
-                        state <= AGUARDA;
-                    end
+                    fila[tail_node] <= data_in;
+                    tail_node       <= tail_node + 1;
+                    reg_len_out     <= reg_len_out + 1;
+                    state <= AGUARDA;
                 end
 
                 DEQUEUE: begin
-                    if (dequeue_in && reg_len_out > 0) begin
-                        data_out_next_cicle     <= fila[head_node];
-                        fila[head_node]         <= 8'hXX;
-                        head_node               <= head_node + 1;
-                        reg_len_out             <= reg_len_out - 1;
-                    end
-                    else begin
-                        state <= AGUARDA;
-                    end
+                    data_out_next_cicle     <= fila[head_node];
+                    fila[head_node]         <= 8'hXX;
+                    head_node               <= head_node + 1;
+                    reg_len_out             <= reg_len_out - 1;
+                    state <= AGUARDA;
                 end
             endcase
         end
