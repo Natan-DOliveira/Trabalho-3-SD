@@ -65,7 +65,7 @@ module top_module
     end
 
         // Sincronização data_ready(100KHz --> 10KHz)
-    always_ff @(posedge clock_100KHz or posedge reset) begin
+    always_ff @(posedge clock_10KHz or posedge reset) begin
         if (reset) begin
             sincroniza_data_ready <= 2'b0;
         end
