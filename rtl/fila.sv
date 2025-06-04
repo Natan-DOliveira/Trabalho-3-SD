@@ -1,8 +1,8 @@
 module fila (
     input logic clock_10KHz,
     input logic reset,
-    input logic dequeue_in,
     input logic enqueue_in,
+    input logic dequeue_in,
     input logic [7:0] data_in,
 
     output logic [7:0] len_out,
@@ -23,7 +23,7 @@ module fila (
     logic [2:0] tail_node;
     logic [7:0] reg_len_out;
     logic [7:0] data_out_next_cicle;
-    logic [7:0] [7:0] fila;
+    logic [7:0] [0:7] fila;
 
     assign len_out = reg_len_out;
 
@@ -35,15 +35,17 @@ module fila (
             tail_node   <= 1'b0;
             reg_len_out <= 8'b0;
             data_out    <= 8'b0;
-            for (int i = 0; i < 0; i++) begin
-                fila[i] <= 8'b0;
+            for (int i = 0; i < 8; i++) begin
+                fila[i] <= 8'hXX;
             end
+            data_out_next_cicle <= 8'b0;
         end
         else begin
             data_out <= data_out_next_cicle;
             case (state)
                 
                 AGUARDA: begin
+                    data_out_next_cicle <= 8'b0;
                     if (enqueue_in && reg_len_out < 8) begin
                         state <= ENQUEUE;
                     end
@@ -53,19 +55,25 @@ module fila (
                 end
 
                 ENQUEUE: begin
-                    fila[tail_node] <= data_in;
-                    tail_node       <= tail_node + 1;
-                    reg_len_out     <= reg_len_out + 1;
-                    state           <= AGUARDA;
+                    if (enqueue_in && reg_len_out < 8) begin
+                        fila[tail_node] <= data_in;
+                        tail_node       <= tail_node + 1;
+                        reg_len_out     <= reg_len_out + 1;
+                    end
+                    else begin
+                        state <= AGUARDA;
+                    end
                 end
 
                 DEQUEUE: begin
-                    next_data_out   <= fila[head_node];
-                    head_node       <= head_node + 1;
-                    reg_len_out     <= reg_len_out - 1;
-                    state           <= AGUARDA;
-                    if (len_out_reg == 1) begin
-                        next_data_out <= 8'b0; 
+                    if (dequeue_in && reg_len_out > 0) begin
+                        data_out_next_cicle     <= fila[head_node];
+                        fila[head_node]         <= 8'hXX;
+                        head_node               <= head_node + 1;
+                        reg_len_out             <= reg_len_out - 1;
+                    end
+                    else begin
+                        state <= AGUARDA;
                     end
                 end
             endcase

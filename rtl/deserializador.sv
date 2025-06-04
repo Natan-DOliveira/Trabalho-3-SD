@@ -10,12 +10,13 @@ module deserializador (
     output logic [7:0] data_out
 );
 
+        // FSM
     typedef enum logic [1:0]
     {
         AGUARDA = 2'b00,                    // AGUARDA o write_in alto
         RECEBE  = 2'b01,                    // RECEBE os bits e acumula eles até chegar em 8
         PRONTO  = 2'b10,                    // PRONTO quando receber os 8 bits --> status_out alto
-        ESPERA  = 2'b11,                    // ESPERA o ack_in alto
+        ESPERA  = 2'b11                     // ESPERA o ack_in alto
     } state_t;
 
         // Registradores
@@ -32,7 +33,6 @@ module deserializador (
             bits_count   <= 3'b0;
             bits_storage <= 8'b0;
             data_out     <= 8'b0;
-            
         end
         else begin
             case (state)
@@ -74,5 +74,4 @@ module deserializador (
             endcase
         end
     end
-
 endmodule
