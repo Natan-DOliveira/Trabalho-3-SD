@@ -8,34 +8,35 @@
 Este projeto implementado em SystemVerilog composto por um **deserializador** e uma **fila FIFO**. O deserializador recebe bytes seriais a 100 kHz, sincroniza os dados com uma fila operando a 10 kHz, e a fila armazena até 8 bytes, suportando enfileiramento (`enqueue_in`) e desenfileiramento (`dequeue_in`). O projeto foi simulado usando o **Questa-Intel® FPGA Edition**.
 
 ## Estrutura do Projeto:
-    
-├── `rtl`/
-│   ├── deserializador.sv
-│   ├── fila.sv          
-│   ├── top_module.sv   
-├── `sim`/
-│   ├── `deserializador`/
-│   │   └── tb_deserializador.sv
-│   ├── `fila`/
-│   │   └── tb_fila.sv
-│   ├── `top_module`/
-│   │   └── tb_top_module.sv    
-├── README.md
+    ├── `rtl`/
+    │   ├── deserializador.sv
+    │   ├── fila.sv
+    │   ├── top_module.sv 
+    ├── `sim`/
+    │   ├── `deserializador`/
+    │   │   └── tb_deserializador.sv
+    │   ├── `fila`/
+    │   │   └── tb_fila.sv
+    │   ├── `top_module`/
+    │       └── tb_top_module.sv
+    ├── README.md
 
 ## Instruções de Execução:
 
-    - Pelo Linux(Windows com MSYS2 MINGW64 deve funcionar):
+- Pelo Linux(Windows com MSYS2 MINGW64 deve funcionar igual):
     1. Entre na pasta `./sim/`
     2. Escolha qual módulo quer testar e entre na pasta dele
     3. Execute o comando `vsim -do sim.do`
 
-    - Pelo Windows:
+- Pelo Windows:
     1. Abra o **Questa-Intel® FPGA Edition**
     2. Selecione: File --> Change Directory...
     3. Escolha qual módulo quer testar e entre na pasta dele `./sim/...`
     4. Pelo transcript execute o comando `do sim.do`
 
 ## Aquitetura do Sistema:
+
+https://cdn.discordapp.com/attachments/767760820498726965/1380321805708951652/amogus.png?ex=6843745b&is=684222db&hm=1c0aeeeb497cd363b0f099ff5083052abee18264fb297aee9088476dbb7e5e49&
 
 ## Módulos:
 
@@ -45,11 +46,8 @@ Este projeto implementado em SystemVerilog composto por um **deserializador** e 
     - Implementada com uma FSM como a descrita abaixo:
 
 
-graph TD
-    AGUARDA -->|write_in=1| RECEBE
-    RECEBE -->|bits_count==7| PRONTO
-    PRONTO --> ESPERA
-    ESPERA -->|ack_in=1| AGUARDA
-    RECEBE -->|write_in=0| AGUARDA
 
-    
+- **Fila**
+    - Clock de 10 KHz;
+    - 
+
