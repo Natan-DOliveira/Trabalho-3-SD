@@ -22,8 +22,7 @@ module fila (
     logic [2:0] head_node;
     logic [2:0] tail_node;
     logic [7:0] reg_len_out;
-    logic [7:0] data_out_next_cicle;
-    logic [7:0] [0:7] fila;
+    logic [7:0] fila [7:0] ;
 
     assign len_out = reg_len_out;
 
@@ -36,15 +35,13 @@ module fila (
             reg_len_out <= 8'b0;
             data_out    <= 8'b0;
             for (int i = 0; i < 8; i++) begin
-                fila[i] <= 8'hXX;
+                fila[i] <= 8'hZZ;
             end
-            data_out_next_cicle <= 8'b0;
         end
         else begin
             case (state)
                 
                 AGUARDA: begin
-                    data_out_next_cicle <= 8'b0;
                     if (enqueue_in && reg_len_out < 8) begin
                         state <= ENQUEUE;
                     end
@@ -62,7 +59,7 @@ module fila (
 
                 DEQUEUE: begin
                     data_out                <= fila[head_node];
-                    fila[head_node]         <= 8'hXX;
+                    fila[head_node]         <= 8'hZZ;
                     head_node               <= head_node + 1;
                     reg_len_out             <= reg_len_out - 1;
                     state                   <= AGUARDA;

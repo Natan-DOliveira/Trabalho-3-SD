@@ -28,12 +28,15 @@ module top_module
     logic enqueue_in;
     // SINCRONIZAÇÃO
     logic reg_ack_in;                           // ALTO quando fila acabou a operação
+    logic data_ready_prev;                      // Salva o valor anterior do data_ready_egde
+    logic data_ready_edge;                      // Detecta incrmento do data_ready
     logic [1:0] sincroniza_ack_in;              // Armazena estados do reg_ack_in em dois FF (10KHz --> 100KHz)
     logic [1:0] sincroniza_data_ready;          // Armazena estados do data_ready em dois FF (100KHz --> 10KHz)
+    logic [7:0] len_out_prev;                   // Detecta incrmento do len_out
     // ATRIBUIÇÕES COMBINACIONAIS
     assign status_out            = deserializador_status_out;
-    assign enqueue_in            = sincroniza_data_ready[1];
-    assign reg_ack_in            = deserializador_data_ready && (len_out < 8);
+    assign enqueue_in            = data_ready_edge;
+    assign reg_ack_in            = sincroniza_data_ready && (len_out > len_out_prev);
     assign deserializador_ack_in = sincroniza_ack_in[1];
 
         // Geração de Clock
@@ -67,10 +70,15 @@ module top_module
         // Sincronização data_ready(100KHz --> 10KHz)
     always_ff @(posedge clock_10KHz or posedge reset) begin
         if (reset) begin
+            data_ready_edge       <= 1'b0;
+            data_ready_prev       <= 1'b0;
             sincroniza_data_ready <= 2'b0;
         end
         else begin
+            len_out_prev          <= len_out;
             sincroniza_data_ready <= {sincroniza_data_ready[0], deserializador_data_ready};
+            data_ready_prev       <=  sincroniza_data_ready[1];
+            data_ready_edge       <=  sincroniza_data_ready[1] && !data_ready_prev;
         end
     end
 

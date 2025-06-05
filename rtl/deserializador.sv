@@ -38,6 +38,9 @@ module deserializador (
             case (state)
 
                 AGUARDA: begin
+                    if (bits_count == 0) begin
+                        bits_storage <= 8'b0;
+                    end
                     if (write_in) begin
                         state <= RECEBE;
                     end
