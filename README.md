@@ -34,10 +34,6 @@ Este projeto implementado em SystemVerilog é composto por um módulo **deserial
     3. Escolha qual módulo quer testar e entre na pasta dele `./sim/...`
     4. Pelo transcript execute o comando `do sim.do`
 
-## Aquitetura do Sistema:
-
-
-
 ## Módulos:
 
 ### - **Deserializador**
