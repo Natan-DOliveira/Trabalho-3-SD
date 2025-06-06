@@ -1,5 +1,4 @@
-# Trabalho de Sistemas Digitais 3
-
+# Trabalho 3 de Sistemas Digitais 
 # Projeto de integração de componentes com múltiplos domínios de relógio
 
 ## Feito por: Natan Duarte de Oliveira
