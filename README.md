@@ -42,14 +42,19 @@ Este projeto implementado em SystemVerilog é composto por um módulo **deserial
 
 ### - **Deserializador**
     - Clock de 100Khz;
-    - Recebe uma sequência de bits pelo sinal data_in e escreve palavras de 8 bits no sinal de saída do módulo data_out, apenas se o write_in estiver alto. Quando data_ready estiver alto os dados serão enviados para a fila, e até serem tratados por ela o módulo ficará esperando o sinal ack_in alto para recomeçar;
+    - Recebe uma sequência de bits pelo sinal data_in e escreve palavras de 8 bits no sinal de saída 
+    do módulo data_out, apenas se o write_in estiver alto.
+    - Quando data_ready estiver alto os dados serão enviados para a fila, e até serem tratados por ela;
+    - O Módulo ficará esperando o sinal ack_in alto para recomeçar;
     - Implementada com uma FSM como a descrita abaixo:
 
 
 ### - **Fila**
     - Clock de 10 KHz;
-    - Estrutura FIFO (First-In, First-Out) de 8 bits que recebe seus nodos pelo sinal data_in e apenas se o enqueue_in estiver alto. O sinal len_out indica o número de nodos na fila;
-    - Para remover um item, sempre o primeiro inserido, o sinal dequeue_in deve estar alto e o valor irá para o data_out no próximo ciclo;
+    - Estrutura FIFO (First-In, First-Out) de 8 bits que recebe seus nodos pelo sinal data_in e apenas 
+    se o enqueue_in estiver alto. 
+    - O sinal len_out indica o número de nodos na fila;
+    - Para remover um item o sinal dequeue_in deve estar alto e o valor removido irá para o data_out no próximo ciclo;
     - Implementada com uma FSM como a descrita abaixo:
 
 
