@@ -73,10 +73,10 @@ Este projeto implementado em SystemVerilog é composto por um módulo **deserial
 ### - Teste 1: Caso Bom - Inserção e Remoção Balanceada
     - Insere o byte 0xAA e remove ele, depois insere o byte 0x55 e remove ele;
     - Imagem da forma de onda no Questa:
-![Forma de Onda do Teste 1](https://i.imgur.com/gT7nTO6)
+![Forma de Onda do Teste 1](https://i.imgur.com/gT7nTO6.png "Forma de Onda do Teste 1")
 ### - Teste 2: Caso Ruim - Fila Cheia
     - Insere 8 bytes 0xFF para o `len_out` chegar ao valor máximo de 8;
     - Depois tenta inserir um byte de 0x00 e fica travado pois não tem espaço na fila;
     - Imagem da forma de onda ao chegar na insersão com a fila já lotada no Questa:
-![Forma de Onda do Teste 2](https://i.imgur.com/MNx1HUO)
+![Forma de Onda do Teste 2](https://i.imgur.com/MNx1HUO.png "Forma de Onda do Teste 2")
     
