@@ -54,7 +54,8 @@ Este projeto implementado em SystemVerilog é composto por um módulo **deserial
     - Estrutura FIFO (First-In, First-Out) de 8 bits que recebe seus nodos pelo sinal data_in e apenas 
     se o enqueue_in estiver alto. 
     - O sinal len_out indica o número de nodos na fila;
-    - Para remover um item o sinal dequeue_in deve estar alto e o valor removido irá para o data_out no próximo ciclo;
+    - Para remover um item o sinal dequeue_in deve estar alto e o valor removido irá para
+     o data_out no próximo ciclo;
     - Implementada com uma FSM como a descrita abaixo:
 
 
